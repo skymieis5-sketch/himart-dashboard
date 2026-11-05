@@ -60,7 +60,7 @@
         width: 297mm !important;
         height: 210mm !important;
         box-sizing: border-box !important;
-        padding: 8mm 10mm !important;
+        padding: 7mm 9mm !important;
         display: grid !important;
         grid-template-columns: 1fr 16px 1fr !important;
         page-break-after: always !important;
@@ -70,11 +70,11 @@
       }
       .pop-card-single {
         width: 100% !important;
-        height: 194mm !important;
+        height: 196mm !important;
         box-sizing: border-box !important;
         border: 2px solid #222 !important;
         border-radius: 14px !important;
-        padding: 10mm 9mm 8mm 9mm !important;
+        padding: 8mm 9mm 7mm 9mm !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
@@ -329,7 +329,7 @@
               <span class="text-[10px] bg-purple-600 text-white font-bold px-2 py-0.5 rounded-full">상록수점 쇼카드</span>
             </div>
             <div class="text-[11px] sm:text-xs text-stone-500 mt-0.5">
-              매월 구독 엑셀 파일을 올리면 <strong>사진과 동일한 A4 가로 2-UP 쇼카드</strong>로 자동 생성 및 인쇄됩니다.
+              정기케어 1, 2 및 올케어 혜택이 포함된 <strong>A4 가로 2-UP 정밀 쇼카드</strong>로 자동 인쇄됩니다.
             </div>
           </div>
         </div>
@@ -341,17 +341,17 @@
 
   </div>
 
-  <!-- ==================== [POP 모달] 사진과 100% 동일한 A4 가로 2-UP 인쇄 뷰어 ==================== -->
+  <!-- ==================== [POP 모달] 정기케어1·2 & 올케어 혜택 탑재 A4 가로 2-UP ==================== -->
   <div id="pop-modal" style="display: none;" class="fixed inset-0 bg-black/60 z-[9999] items-center justify-center p-2 sm:p-4">
     <div class="bg-white rounded-2xl sm:rounded-3xl max-w-5xl w-full p-4 sm:p-6 shadow-2xl space-y-3.5 max-h-[96vh] overflow-y-auto flex flex-col">
       
-      <!-- 상단 컨트롤러 (인쇄 시 숨김 no-print) -->
+      <!-- 상단 컨트롤러 -->
       <div class="flex justify-between items-center border-b pb-2.5 no-print flex-shrink-0">
         <div>
           <h3 class="font-extrabold text-sm sm:text-base text-stone-900 flex items-center gap-1.5">
             <span>📊</span> 상록수점 구독 POP 자동 출력기 (A4 가로 2-UP)
           </h3>
-          <p class="text-[10px] sm:text-[11px] text-stone-500 mt-0.5">A4 가로 1장에 좌/우 2장의 A5 쇼카드가 절취선과 함께 딱 맞게 출력됩니다.</p>
+          <p class="text-[10px] sm:text-[11px] text-stone-500 mt-0.5">정기케어 1·2 및 올케어 혜택 완벽 연동 쇼카드</p>
         </div>
         <button type="button" onclick="closePopModal()" class="text-stone-400 hover:text-stone-700 text-xl font-bold px-2">✕</button>
       </div>
@@ -360,15 +360,15 @@
       <div class="p-3 bg-stone-50 border border-stone-200 rounded-xl space-y-2.5 no-print flex-shrink-0">
         <div class="flex flex-wrap items-center justify-between gap-2">
           
-          <!-- 카드사 스위처 -->
+          <!-- 카드사 스위처 (18,000원 혜택 고정) -->
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold text-stone-700">제휴카드 적용:</span>
             <div class="flex rounded-lg border border-stone-300 overflow-hidden bg-white text-xs font-bold shadow-sm">
               <button type="button" id="pop-card-lotte" onclick="setPopCardType('lotte')" class="px-3 py-1.5 bg-blue-600 text-white transition">
-                롯데카드 (캐시백)
+                롯데카드 (1.8만 캐시백)
               </button>
               <button type="button" id="pop-card-woori" onclick="setPopCardType('woori')" class="px-3 py-1.5 text-stone-600 hover:bg-stone-100 transition">
-                우리카드 (청구할인)
+                우리카드 (1.8만 청구할인)
               </button>
             </div>
           </div>
@@ -376,9 +376,8 @@
           <!-- 액션 버튼 -->
           <div class="flex items-center gap-1.5">
             <button type="button" onclick="loadSampleExcelData()" class="text-xs text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-3 py-1.5 rounded-lg font-bold">
-              ⚡ 사진 양식 다시 불러오기
+              ⚡ 케어·올케어 샘플 보기
             </button>
-            <!-- [핵심] 인쇄 버튼: 가로 방향 인쇄 안내 알림 포함 -->
             <button type="button" onclick="triggerA4LandscapePrint()" class="bg-[#ED1C24] hover:bg-[#c9141b] text-white px-4 py-2 rounded-xl text-xs font-black shadow-md flex items-center gap-1.5 animate-pulse">
               🖨️ A4 가로 2-UP 인쇄하기
             </button>
@@ -386,18 +385,18 @@
         </div>
 
         <!-- 엑셀 파일 업로드 -->
-        <div class="border-2 border-dashed border-stone-300 rounded-xl p-3 text-center bg-white hover:bg-stone-50 transition relative cursor-pointer">
+        <div class="border-2 border-dashed border-stone-300 rounded-lg p-3 text-center bg-white hover:bg-stone-50 transition relative cursor-pointer">
           <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="handleExcelUpload(event)">
           <div class="text-xs font-bold text-stone-700 flex items-center justify-center gap-1.5">
-            <span>📁 매월 구독 엑셀 파일을 여기에 올리세요 (올케어 자동 감지 및 2-UP 변환)</span>
+            <span>📁 엑셀 파일(정기케어1, 정기케어2, 올케어 포함)을 터치하여 업로드하세요</span>
           </div>
         </div>
       </div>
 
-      <!-- 인쇄 가이드 배너 (no-print) -->
+      <!-- 인쇄 가이드 배너 -->
       <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-center justify-between no-print flex-shrink-0">
         <div>
-          ⚠️ <strong>인쇄 창에서 꼭 확인하세요:</strong> 인쇄 창 우측 설정에서 <strong>[레이아웃: 가로 방향]</strong>, <strong>[여백: 없음]</strong>, <strong>[배경 그래픽: 체크]</strong>로 해주셔야 용지에 꽉 차게 나옵니다!
+          🖨️ <strong>인쇄 설정 안내:</strong> 인쇄 창 우측에서 <strong>[레이아웃: 가로 방향]</strong>, <strong>[여백: 없음]</strong>, <strong>[배경 그래픽: 체크]</strong>로 설정하셔야 용지에 딱 맞게 인쇄됩니다!
         </div>
       </div>
 
@@ -411,35 +410,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ==================== 기타 모달 (휴무표, VIP, 구독 견적, AI 등) ==================== -->
-  <div id="schedule-modal" style="display: none;" class="fixed inset-0 bg-black/60 z-[9999] items-center justify-center p-2.5 sm:p-4">
-    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 shadow-2xl space-y-3 max-h-[94vh] flex flex-col">
-      <div class="flex justify-between items-center border-b pb-2 flex-shrink-0">
-        <h3 class="font-extrabold text-sm sm:text-base text-stone-900">📅 상록수 하이마트 휴무 계획표</h3>
-        <button type="button" onclick="closeModal('schedule-modal')" class="text-stone-400 hover:text-stone-700 text-lg font-bold px-2">✕</button>
-      </div>
-      <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 p-3 sm:p-4 rounded-xl flex-shrink-0 shadow-sm flex justify-between items-center">
-        <div>
-          <div class="text-[11px] sm:text-xs font-black">🌟 박인성 부점장 총 휴무: 14일 (잔여 연차: 5.25개)</div>
-          <div class="text-xs sm:text-sm font-extrabold mt-0.5">🔥 11/9~14: 6일 황금 휴가기</div>
-        </div>
-        <div class="text-[10px] bg-white text-stone-900 px-2 py-1 rounded font-bold">스케줄 동기화</div>
-      </div>
-      <div class="border border-stone-200 rounded-xl overflow-hidden shadow-sm flex-1 overflow-x-auto">
-        <table class="w-full text-left text-xs border-collapse min-w-[500px]">
-          <thead class="bg-stone-100 text-stone-700 border-b">
-            <tr><th class="p-2">직급</th><th class="p-2">성명</th><th class="p-2">휴무일수</th><th class="p-2">세부 일정</th></tr>
-          </thead>
-          <tbody class="divide-y divide-stone-100">
-            <tr class="bg-amber-50/60 font-extrabold text-amber-950"><td class="p-2">부점장</td><td class="p-2 text-purple-700">박인성</td><td class="p-2 text-rose-600">14일</td><td class="p-2">2, 3, 6, 7(반반), 9~11(휴가3일), 12~13(연차2일), 14, 18, 19, 24, 27</td></tr>
-            <tr><td class="p-2">점장</td><td class="p-2">유상준</td><td class="p-2 font-bold">12일</td><td class="p-2 text-stone-600">4, 5, 7(연), 8, 14(연), 16(연), 17, 18, 21, 22(연), 25, 28, 29</td></tr>
-            <tr><td class="p-2">3층 대형</td><td class="p-2">윤상기</td><td class="p-2 font-bold">11일</td><td class="p-2 text-stone-600">3(5시), 4, 5, 8(반차), 11, 15, 18, 19, 24(연), 25, 26</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 
@@ -473,7 +443,7 @@
     <div id="chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2.5 text-xs bg-stone-50">
       <div class="bg-white p-3 rounded-2xl border border-stone-200 text-stone-800 leading-relaxed shadow-sm">
         박인성 부점장님, 안녕하세요!<br>
-        A4 가로 2-UP 쇼카드 양식이 완벽하게 반영되었습니다. 필요하신 작업을 말씀해 주세요! ✨
+        POP 양식에 정기케어1, 2 및 올케어 혜택이 완벽히 추가되었습니다. 업무를 말씀해 주세요! ✨
       </div>
     </div>
     <div class="p-2.5 bg-white border-t border-stone-200 flex gap-1.5 flex-shrink-0">
@@ -487,7 +457,6 @@
     let currentPopCard = 'lotte';
     let currentPopDataList = [];
 
-    // [핵심] 인쇄 트리거 시 가로 방향 안내 후 브라우저 인쇄 실행
     function triggerA4LandscapePrint() {
       window.print();
     }
@@ -515,7 +484,6 @@
         el.style.setProperty('display', 'flex', 'important');
         el.classList.remove('hidden');
       }
-      // 열리자마자 사진 속 신규 2-UP 쇼카드 양식 즉시 렌더링!
       if (!currentPopDataList || currentPopDataList.length === 0) {
         loadSampleExcelData();
       }
@@ -529,7 +497,7 @@
       }
     }
 
-    // [핵심] 사진과 100% 동일한 A4 가로 2-UP 쇼카드 렌더링 함수
+    // [핵심] 정기케어1, 2 & 올케어 혜택 탑재 A4 가로 2-UP 쇼카드 렌더링
     function renderPhotoStylePOPCards(items) {
       currentPopDataList = items;
       const emptyState = document.getElementById('pop-empty-state');
@@ -542,17 +510,17 @@
       const cardName = currentPopCard === 'lotte' ? '롯데카드' : '우리카드';
       const benefitWord = currentPopCard === 'lotte' ? '캐시백' : '청구할인';
 
-      // 2개씩 묶어서 A4 가로 1장(.pop-page-pair) 생성
+      // 2개씩 짝지어 A4 가로 1장 생성
       for (let i = 0; i < items.length; i += 2) {
         const item1 = items[i];
-        const item2 = items[i + 1] || items[i]; // 홀수면 같은 상품 2-UP으로 1장 꽉 채움
+        const item2 = items[i + 1] || items[i];
 
         const pageHTML = `
           <div class="pop-page-pair">
             <!-- 좌측 쇼카드 (1) -->
             ${generateSinglePopCardHTML(item1, cardName, benefitWord)}
 
-            <!-- 중앙 가위 절취선 -->
+            <!-- 중앙 절취선 -->
             <div class="pop-divider">
               <span class="text-xs text-stone-400 no-print" style="margin-left:-8px;">✂</span>
             </div>
@@ -573,27 +541,27 @@
       const fee3Y = Number(item.fee3Y || item['3년구독료'] || item['36개월'] || 33000);
       const fee5Y = Number(item.fee5Y || item['5년구독료'] || item['60개월'] || 30000);
       
-      const disc = Number(item.cardDiscount || item['카드할인'] || 18000);
+      // [요청반영 1] 제휴카드 혜택 18,000원 고정 세팅!
+      const disc = 18000;
       const final3Y = Math.max(0, fee3Y - disc);
       const final5Y = Math.max(0, fee5Y - disc);
 
       const totalSum3Y = fee3Y * 36;
       const totalSum5Y = fee5Y * 60;
 
-      let careText = item.careText || item['케어서비스'] || item['안심케어'] || '4개월 주기 필터 배송, 1년 주기 방문 케어';
-      const isAllCare = JSON.stringify(item).includes('올케어') || JSON.stringify(item).includes('안심케어');
-      if (isAllCare && !careText.includes('올케어')) {
-        careText = "🛡️ 가전 올케어 특별 포함 (전문 클리닝 + 무상 A/S 보장)";
-      }
+      // [요청반영 2] 엑셀에서 정기케어1, 정기케어2, 올케어 혜택 자동 매핑!
+      const care1 = item.care1 || item['정기케어1'] || item['정기케어 1'] || '4개월 주기 필터 무료 배송';
+      const care2 = item.care2 || item['정기케어2'] || item['정기케어 2'] || '1년 주기 전문가 방문 케어';
+      const allCare = item.allCare || item['올케어혜택'] || item['올케어 혜택'] || item['올케어'] || '5년 무상 A/S 기본 보장 + 수리비 전액 지원';
 
       const imgUrl = item.imgUrl || "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=300&q=80";
 
       return `
         <div class="pop-card-single">
           
-          <!-- 상단 헤더: 하이마트 로고 + 매장명 + 제품 기본정보 & 사진 -->
+          <!-- 상단: 롯데 로고 + 브랜드/품목/모델코드 + 제품 이미지 -->
           <div>
-            <div class="flex items-center justify-between border-b-2 border-stone-800 pb-2">
+            <div class="flex items-center justify-between border-b-2 border-stone-800 pb-1.5">
               <div class="flex items-center gap-1.5 font-bold text-sm">
                 <span class="w-4 h-4 rounded-full bg-[#ED1C24] text-white flex items-center justify-center text-[10px] font-black italic">l</span>
                 <span class="text-[#ED1C24] font-black">롯데하이마트</span>
@@ -602,71 +570,84 @@
               </div>
             </div>
 
-            <!-- 제품명 및 이미지 영역 -->
-            <div class="flex items-start justify-between pt-3">
+            <div class="flex items-start justify-between pt-2">
               <div>
-                <div class="text-base font-bold text-stone-800">${brand}</div>
-                <h4 class="text-3xl font-black text-stone-950 mt-0.5 tracking-tight">${category}</h4>
-                <div class="text-sm font-semibold text-stone-500 mt-1 font-mono">${model}</div>
+                <div class="text-sm font-bold text-stone-800">${brand}</div>
+                <h4 class="text-2xl sm:text-[26px] font-black text-stone-950 mt-0.5 tracking-tight leading-none">${category}</h4>
+                <div class="text-xs font-semibold text-stone-500 mt-1 font-mono">${model}</div>
               </div>
-              <div class="w-24 h-28 flex-shrink-0 bg-stone-50 rounded-xl border border-stone-200 overflow-hidden flex items-center justify-center p-1">
+              <div class="w-20 h-24 sm:w-22 sm:h-26 flex-shrink-0 bg-stone-50 rounded-xl border border-stone-200 overflow-hidden flex items-center justify-center p-1">
                 <img src="${imgUrl}" alt="${category}" class="w-full h-full object-contain">
               </div>
             </div>
 
-            <!-- 케어 배지 (사진 속 부드러운 블루 라운드 바) -->
-            <div class="mt-3 py-2 px-3 bg-[#EAF2FC] text-[#245CA6] text-center rounded-xl font-extrabold text-[13px] border border-blue-200/60">
-              ${careText}
+            <!-- [요청반영 2] 여백을 채우는 정기케어1, 2 및 올케어 상세 혜택 박스 -->
+            <div class="mt-2.5 space-y-1.5">
+              <!-- 정기케어 1 & 2 나란히 배치 -->
+              <div class="grid grid-cols-2 gap-1.5 text-[11px] font-extrabold text-stone-800">
+                <div class="py-1.5 px-2.5 bg-[#EAF2FC] text-[#245CA6] rounded-lg border border-blue-200/60 truncate flex items-center gap-1">
+                  <span>🌿</span> <span>${care1}</span>
+                </div>
+                <div class="py-1.5 px-2.5 bg-[#EAF2FC] text-[#245CA6] rounded-lg border border-blue-200/60 truncate flex items-center gap-1">
+                  <span>🔧</span> <span>${care2}</span>
+                </div>
+              </div>
+
+              <!-- 올케어 혜택 특별 강조 바 -->
+              <div class="py-1.5 px-3 bg-amber-50 text-amber-900 rounded-lg font-black text-[11.5px] border border-amber-300 flex items-center justify-between">
+                <span class="flex items-center gap-1">🛡️ 올케어 혜택</span>
+                <span class="text-amber-800 text-[11px] font-bold">${allCare}</span>
+              </div>
             </div>
           </div>
 
-          <!-- 조견표 (3년 vs 5년 비교 테이블) -->
-          <div class="my-3 border border-stone-300 rounded-xl overflow-hidden">
+          <!-- 조견표 (제휴카드 18,000원 혜택 고정 반영) -->
+          <div class="my-2 border border-stone-300 rounded-xl overflow-hidden">
             <table class="w-full text-center text-xs border-collapse">
               <thead class="bg-[#ECECEC] text-stone-700 font-bold border-b border-stone-300">
                 <tr>
-                  <th class="py-2.5 px-3 text-left pl-4 text-stone-800 w-1/3 text-xs">구독 기간</th>
-                  <th class="py-2.5 px-2 w-1/3 text-stone-950 font-black text-sm">3년</th>
-                  <th class="py-2.5 px-2 w-1/3 text-stone-950 font-black text-sm">5년</th>
+                  <th class="py-2 px-3 text-left pl-3 text-stone-800 w-1/3 text-xs">구독 기간</th>
+                  <th class="py-2 px-2 w-1/3 text-stone-950 font-black text-sm">3년</th>
+                  <th class="py-2 px-2 w-1/3 text-stone-950 font-black text-sm">5년</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-stone-200 font-semibold text-stone-800">
                 <tr>
-                  <td class="py-2.5 px-3 text-left pl-4 bg-stone-50 text-stone-600 font-bold">기본 구독료</td>
-                  <td class="py-2.5 px-2 text-sm font-bold">월 ${fee3Y.toLocaleString()}원</td>
-                  <td class="py-2.5 px-2 text-sm font-bold">월 ${fee5Y.toLocaleString()}원</td>
+                  <td class="py-2 px-3 text-left pl-3 bg-stone-50 text-stone-600 font-bold">기본 구독료</td>
+                  <td class="py-2 px-2 text-sm font-bold">월 ${fee3Y.toLocaleString()}원</td>
+                  <td class="py-2 px-2 text-sm font-bold">월 ${fee5Y.toLocaleString()}원</td>
                 </tr>
                 <tr class="bg-amber-50/40">
-                  <td class="py-2.5 px-3 text-left pl-4 text-stone-900 font-black">제휴카드 시</td>
-                  <td class="py-2.5 px-2">
+                  <td class="py-2 px-3 text-left pl-3 text-stone-900 font-black">제휴카드 시</td>
+                  <td class="py-2 px-2">
                     <div class="font-black text-sm text-stone-950">월 ${final3Y.toLocaleString()}원</div>
                     <div class="text-[10px] text-stone-500 font-normal">(${cardName})</div>
                   </td>
-                  <td class="py-2.5 px-2">
+                  <td class="py-2 px-2">
                     <div class="font-black text-sm text-stone-950">월 ${final5Y.toLocaleString()}원</div>
                     <div class="text-[10px] text-stone-500 font-normal">(${cardName})</div>
                   </td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3 text-left pl-4 bg-stone-50 text-stone-600 font-bold">제휴카드 총 혜택 금액</td>
-                  <td class="py-2.5 px-2 text-[#2263B8] font-black text-sm">월 ${disc.toLocaleString()}원</td>
-                  <td class="py-2.5 px-2 text-[#2263B8] font-black text-sm">월 ${disc.toLocaleString()}원</td>
+                  <td class="py-2 px-3 text-left pl-3 bg-stone-50 text-stone-600 font-bold">제휴카드 총 혜택 금액</td>
+                  <td class="py-2 px-2 text-[#2263B8] font-black text-sm">월 18,000원</td>
+                  <td class="py-2 px-2 text-[#2263B8] font-black text-sm">월 18,000원</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <!-- 하단 안내 문구 & 공식 롯데 로고 -->
-          <div class="pt-2 border-t border-stone-200 space-y-1.5">
-            <div class="text-[10px] text-stone-600 space-y-0.5 leading-tight">
+          <div class="pt-1.5 border-t border-stone-200 space-y-1">
+            <div class="text-[9.5px] text-stone-600 space-y-0.5 leading-tight">
               <p>※ 서비스 안내 : 36개월 기준</p>
               <p>※ 제휴카드 실적 30만원 이상 사용 기준 (${cardName} ${benefitWord})</p>
               <p>※ 총 구독료 : 3년 ${totalSum3Y.toLocaleString()}원 / 5년 ${totalSum5Y.toLocaleString()}원</p>
             </div>
 
-            <div class="pt-1 flex items-center justify-center gap-1.5 text-[#ED1C24]">
-              <span class="w-4 h-4 rounded-full bg-[#ED1C24] text-white flex items-center justify-center text-[10px] font-black italic">l</span>
-              <span class="font-black text-xs sm:text-sm tracking-wider">LOTTE HIMART</span>
+            <div class="pt-0.5 flex items-center justify-center gap-1.5 text-[#ED1C24]">
+              <span class="w-3.5 h-3.5 rounded-full bg-[#ED1C24] text-white flex items-center justify-center text-[9px] font-black italic">l</span>
+              <span class="font-black text-xs tracking-wider">LOTTE HIMART</span>
             </div>
           </div>
 
@@ -674,7 +655,7 @@
       `;
     }
 
-    // 엑셀 파일 업로드 시 자동 파싱
+    // 엑셀 파일 업로드 시 정기케어1, 2, 올케어 자동 파싱
     function handleExcelUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -699,13 +680,14 @@
             model: r['상품코드'] || r['모델명'] || 'WPU-CMDLEK',
             fee3Y: Number(r['3년구독료'] || r['36개월'] || r['월 구독료'] || 33000),
             fee5Y: Number(r['5년구독료'] || r['60개월'] || 30000),
-            cardDiscount: 18000,
-            careText: r['안심케어'] || r['케어서비스'] || '4개월 주기 필터 배송, 1년 주기 방문 케어',
+            care1: r['정기케어1'] || r['정기케어 1'] || r['케어서비스1'] || '4개월 주기 필터 무료 배송',
+            care2: r['정기케어2'] || r['정기케어 2'] || r['케어서비스2'] || '1년 주기 전문가 방문 케어',
+            allCare: r['올케어혜택'] || r['올케어 혜택'] || r['올케어'] || r['안심케어'] || '5년 무상 A/S 기본 보장 + 수리비 전액 지원',
             imgUrl: r['이미지'] || "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=300&q=80"
           }));
 
           renderPhotoStylePOPCards(parsedItems);
-          alert(`총 ${parsedItems.length}개 품목의 사진 양식 A4 2-UP 쇼카드가 생성되었습니다!`);
+          alert(`총 ${parsedItems.length}개 품목의 정기케어·올케어 반영 쇼카드가 생성되었습니다!`);
 
         } catch (err) {
           console.error("엑셀 파싱 에러:", err);
@@ -715,7 +697,7 @@
       reader.readAsArrayBuffer(file);
     }
 
-    // 사진 원본과 100% 동일한 샘플 데이터
+    // 신규 케어 혜택 포함 샘플 데이터
     function loadSampleExcelData() {
       const sampleItems = [
         {
@@ -724,19 +706,21 @@
           model: "WPU-CMDLEK",
           fee3Y: 33000,
           fee5Y: 30000,
-          cardDiscount: 18000,
-          careText: "4개월 주기 필터 배송, 1년 주기 방문 케어",
+          care1: "4개월 주기 정기 필터 무료 배송",
+          care2: "1년 주기 전문가 방문 살균 클리닝",
+          allCare: "5년 무상 A/S 보장 + 수리비 전액 지원",
           imgUrl: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=300&q=80"
         },
         {
-          brand: "삼성",
-          category: "4도어 냉장고",
-          model: "WPU-CMDLEK",
-          fee3Y: 33000,
-          fee5Y: 30000,
-          cardDiscount: 18000,
-          careText: "4개월 주기 필터 배송, 1년 주기 방문 케어",
-          imgUrl: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=300&q=80"
+          brand: "LG전자",
+          category: "오브제 워시타워",
+          model: "WL21WVS",
+          fee3Y: 45000,
+          fee5Y: 39000,
+          care1: "완전분해 스팀 통살균 케어",
+          care2: "고무패킹 및 배수필터 무상 교체",
+          allCare: "가전 올케어 5년 부품·출장 무상 보증 (자기부담금 0원)",
+          imgUrl: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=300&q=80"
         }
       ];
       renderPhotoStylePOPCards(sampleItems);
@@ -789,7 +773,7 @@
     // 초기화
     window.addEventListener('DOMContentLoaded', () => {
       initTheme();
-      loadSampleExcelData(); // 시작하자마자 사진 속 신규 양식을 기본으로 로드!
+      loadSampleExcelData();
     });
   </script>
 </body>
